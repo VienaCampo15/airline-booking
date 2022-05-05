@@ -1,11 +1,10 @@
-
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey , DateTime
 from sqlalchemy.orm import relationship
-from database.session import Base
+from app.database.db import Base
 
 class Flight(Base):
-    __tablename__ = 'flight'
+    __tablename__ = 'flights'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     departureDate = Column(DateTime, default = datetime.now)
@@ -21,4 +20,5 @@ class Flight(Base):
     ticketprice = Column(Float)
     flightNumber = Column(String(100))
     seatCapacity = Column(Integer)
+
     booking_info = relationship("Booking", back_populates="flight_info")

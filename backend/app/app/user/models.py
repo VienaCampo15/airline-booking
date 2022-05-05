@@ -1,14 +1,15 @@
 
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, Email
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy_utils import EmailType
 from sqlalchemy.orm import relationship
-from database.session import Base
+from app.database.db import Base
 
 class User(Base):
     __tablename__ = 'user'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     fullName = Column(String(300))
-    email = Column(String(250), Email)
+    email = Column(EmailType)
     password = Column(String(50))
-    current_booking = relationship("Booking", back_populates="flight_info")
+    current_booking = relationship("Booking", back_populates="costumer_info")
