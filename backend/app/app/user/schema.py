@@ -1,8 +1,8 @@
-from pydantic import BaseModel, constr
+from pydantic import BaseModel, constr, EmailStr
 
 class UserBase(BaseModel):
     fullName: str
-    email: str   
+    email: EmailStr
 
 class UserCreate(UserBase):
     password: constr(max_length=255)

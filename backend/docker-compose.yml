@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    container_name: db
+    hostname: db
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=demoadmin
+      - POSTGRES_DB=myecapp
+      - POSTGRES_PASSWORD=123123
+    ports:
+      - 5432:5432
+    expose:
+      - 5432
+  app:
+    container_name: app-sm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    environment:
+      - SQLALCHEMY_DATABASE_URI=postgresql://demoadmin:123123@db/Flapp
+    depends_on:
+      - db
