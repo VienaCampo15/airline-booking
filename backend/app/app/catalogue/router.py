@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends, status, Response, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi.responses import PlainTextResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from datetime import date
+from datetime import date, datetime
 from app.database import db
 from . import schema
 from . import services
@@ -14,7 +14,7 @@ async def get_all_flights(db_session: Session = Depends(db.get_db_session)):
     return await services.get_all_flights(db_session)
 
 @api_router.get("/catalogo/", response_model = List[schema.Flight])
-async def get_flights_by_airportsCode_and_date(departureAirportCode: str, arrivalAirportCode: str, departureDate: date, db_session: Session = Depends(db.get_db_session)):
+async def get_flights_by_airportsCode_and_date(departureAirportCode: str, arrivalAirportCode: str, departureDate: datetime, db_session: Session = Depends(db.get_db_session)):
     flights = await services.get_flights_by_airportsCode_and_date(departureAirportCode, arrivalAirportCode, departureDate, db_session)
     if not flights:
         raise HTTPException(status_code = 404, detail = "Non-existing flights")
@@ -32,11 +32,12 @@ async def create_new_flight(flight: schema.FlightCreate, db_session: Session = D
     new_flight = await services.create_new_flight(flight, db_session = db_session)
     return new_flight
 
-@api_router.put("/catalogo/{id}", status_code = status.HTTP_201_CREATED)
-async def update_flight(flight_id: int, flight: schema.FlightUpdate, db_session: Session = Depends(db.get_db_session)):
+@api_router.put("/catalogo/{id}", status_code = status.HTTP_200_OK)
+async def update_flight(id: int, flight: schema.FlightUpdate, db_session: Session = Depends(db.get_db_session)):
     new_flight = await services.update_flight(id, flight, db_session)
+    return new_flight
 
-@api_router.delete("catalogo/{id}", status_code = status.HTTP_200_OK, response_class = PlainTextResponse)
+@api_router.delete("/catalogo/{id}", status_code = status.HTTP_200_OK, response_class = PlainTextResponse)
 async def delete_flight_by_id(id: int, db_session: Session = Depends(db.get_db_session)):
-    await services.delete_flight(id, db_session)
+    await services.delete_flight_by_id(id, db_session)
     return "The flight have been deleted."

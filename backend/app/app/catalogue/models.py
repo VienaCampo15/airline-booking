@@ -9,7 +9,7 @@ class Flight(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     departureDate = Column(DateTime, default = datetime.now)
     departureAirportName = Column(String(100))
-    departureAirpotCode = Column(String(100))
+    departureAirportCode = Column(String(100))
     departureCity = Column(String(100))
     departureLocate = Column(String(100))
     arrivalDate = Column(DateTime, default = datetime.now)

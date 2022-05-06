@@ -2,19 +2,19 @@ from pydantic import BaseModel, constr
 from datetime import datetime
 
 class FlightBase(BaseModel):
-    departureDate = datetime
-    departureAirportName = str
-    departureAirpotCode = constr(max_length = 50)
-    departureCity = str
-    departureLocate = str
-    arrivalDate = datetime
-    arrivalAirportName = str
-    arrivalAirportCode = constr(max_length = 50)
-    arrivalCity = str
-    arrivalLocate = str
-    ticketprice = float
-    flightNumber = int
-    seatCapacity = int
+    departureDate : datetime
+    departureAirportName : str
+    departureAirportCode : constr(max_length = 50)
+    departureCity : str
+    departureLocate : str
+    arrivalDate : datetime
+    arrivalAirportName : str
+    arrivalAirportCode : constr(max_length = 50)
+    arrivalCity : str
+    arrivalLocate : str
+    ticketprice : float
+    flightNumber : int
+    seatCapacity : int
 
 class FlightCreate(FlightBase):
     pass
@@ -31,5 +31,5 @@ class FlightInDBBase(FlightBase):
 class Flight(FlightInDBBase):
     pass
 
-class FightInDB(FlightInDBBase):
+class FlightInDB(FlightInDBBase):
     pass

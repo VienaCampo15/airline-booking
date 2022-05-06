@@ -1,15 +1,23 @@
 
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
-from sqlalchemy_utils import EmailType
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from app.database.db import Base
+from app.core import hashing
 
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
-    fullName = Column(String(300))
-    email = Column(EmailType)
+    fullName = Column(String(255))
+    email = Column(String(255), unique=True)
     password = Column(String(50))
-    current_booking = relationship("Booking", back_populates="costumer_info")
+    current_booking = relationship("Booking", back_populates="customer_info")
+
+    def __init__(self, fullname, username, password, *args, **kwargs):
+       self.fullname = fullname
+       self.username = username
+       self.password = hashing.get_password_hash(password)
+    
+    def check_password(self, password):
+        return hashing.verify_password(self.password, password)
