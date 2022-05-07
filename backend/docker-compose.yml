@@ -7,20 +7,20 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=demoadmin
-      - POSTGRES_DB=myecapp
-      - POSTGRES_PASSWORD=123123
+      - POSTGRES_DB=Flapp
+      - POSTGRES_PASSWORD=2019114020
     ports:
       - 5432:5432
     expose:
       - 5432
   app:
-    container_name: app-sm
+    container_name: app-airlineBooking
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 80:80
     environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql://demoadmin:123123@db/Flapp
+      - DATABASE_URI=postgresql://demoadmin:2019114020@db/Flapp
     depends_on:
       - db
