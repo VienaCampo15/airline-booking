@@ -8,7 +8,6 @@ from .schema import UserCreate, UserUpdate
 from .models import User
 
 async def create_new_user(user: UserCreate, db_session: Session) -> User:
-    user.password = hashing.get_password_hash(user.password)
     new_user = User(**user.dict())
     db_session.add(new_user)
     db_session.commit()

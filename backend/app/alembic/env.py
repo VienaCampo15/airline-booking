@@ -19,7 +19,7 @@ from app.core.config import settings
 from app.database.db import Base
 from app.booking.models import Booking
 from app.user.models import User
-from app.catalogue.models import Flight
+from app.catalog.models import Flight
 
 #database config - conexion url
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URI)

@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.database.db import Base
-from app.catalogue.models import Flight
+from app.catalog.models import Flight
 from app.user.models import User
 
 
