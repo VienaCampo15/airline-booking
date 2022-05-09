@@ -5,7 +5,7 @@ from functools import lru_cache
 class Settings(BaseSettings):
     DATABASE_USERNAME: str = 'demoadmin'
     DATABASE_PASSWORD: str = '2019114020'
-    DATABASE_HOST: str = 'localhost'
+    DATABASE_HOST: str = 'fastapi-db.postgres.database.azure.com'
     DATABASE_NAME: str = 'Flapp'
     
     DATABASE_URI: Optional[str] = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}"

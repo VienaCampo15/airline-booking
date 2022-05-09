@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.core import config
 from fastapi.responses import RedirectResponse
-
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.catalog import router as catalog_router
 from app.user import router as user_router
@@ -13,13 +13,14 @@ app = FastAPI(title = "Airline-Booking", version = "0.0.1")
 async def redirect_to_docs():
     return "/docs"
 
-'''app.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
-)'''
+)
+
 app.include_router(catalog_router.api_router)
 app.include_router(user_router.api_router)
 app.include_router(booking_router.api_router)

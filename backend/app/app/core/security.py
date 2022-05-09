@@ -10,7 +10,7 @@ from app.user.models import User
 from app.database import db
 from app.auth import schema
 
-auth2_scheme = OAuth2PasswordBearer(tokenUrl = "/login/")
+auth2_scheme = OAuth2PasswordBearer(tokenUrl = "/signup")
 
 def create_access_token(*, sub: str) -> str:
     return _create_token(token_type = "access_token", lifetime = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES), sub = sub)

@@ -9,7 +9,7 @@ from app.user.services import authenticate
 
 api_router = APIRouter(tags=["Auth"])
 
-@api_router.post("/login/")
+@api_router.post("/signup")
 def login(db_session: Session= Depends(db.get_db_session), form_data: OAuth2PasswordRequestForm = Depends()) -> Any:
     user = authenticate(email=form_data.username, password=form_data.password, db_session=db_session)
     if not user:
