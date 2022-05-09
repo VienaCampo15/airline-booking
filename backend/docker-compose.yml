@@ -11,8 +11,6 @@ services:
       - POSTGRES_PASSWORD=2019114020
     ports:
       - 5432:5432
-    expose:
-      - 5432
   app:
     container_name: app-airlineBooking
     build:
