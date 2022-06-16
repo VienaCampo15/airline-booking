@@ -42,11 +42,11 @@ async def get_current_user(db: Session = Depends(db.get_db_session), token: str 
         if username is None:
             raise credentials_exception
         
-        token_data = schema.TokenData(username = username)
+        token_data = schema.TokenData(email = username)
     except JWTError:
         raise credentials_exception
     
-    user = db.query(User).filter(User.username == token_data.username).first()
+    user = db.query(User).filter(User.email == token_data.username).first()
 
     if user is None:
         raise credentials_exception
